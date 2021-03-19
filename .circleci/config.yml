@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
   docker: circleci/docker@1.5.0
-  jobs:
+jobs:
   build-and-push:
     enviroment:
       DOCKER_IMAGE: nvkhiem/react-basic-docker
