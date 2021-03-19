@@ -1,7 +1,37 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+  docker: circleci/docker@1.5.0
+  jobs:
+  build-and-push:
+    enviroment:
+      DOCKER_IMAGE: nvkhiem/react-basic-docker
+      DOCKER_TAG: lastest
+    executor: docker/docker 
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check:
+        docker-username: $DOCKER_USER
+        docker-password: $DOCKER_PASSWORD
+      - docker/build:
+          digest-path: /tmp/digest.txt
+          image: $DOCKER_IMAGE
+          tag: $DOCKER_TAG  
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: my_repo/orb-test
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)" 
 workflows:
-  node-tests:
+  build_deploy:
     jobs:
       - node/test
+      - build-and-push:
+          requires:
+            - node/test
+          filters:
+            branches:
+              only:
+                - main
