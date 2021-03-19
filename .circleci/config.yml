@@ -15,7 +15,6 @@ jobs:
         docker-username: DOCKER_USER
         docker-password: DOCKER_PASSWORD
       - docker/build:
-          digest-path: /tmp/digest.txt
           image: $DOCKER_IMAGE
           tag: $DOCKER_TAG  
       - docker/push:
