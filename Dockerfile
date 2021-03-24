@@ -1,4 +1,4 @@
-FROM node:stretch as build
+FROM node:12.19.0 as build
 WORKDIR /app
 COPY . /app
 EXPOSE 3030
