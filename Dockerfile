@@ -5,4 +5,4 @@ EXPOSE 3030
 RUN npm install && npm run build
 
 FROM nginx:latest
-COPY --from=build /app/build /usr/share/nginx/html
+COPY /app/build /usr/share/nginx/html
