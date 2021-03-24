@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
   docker: circleci/docker@1.4.0
-
+-
 jobs:
   build-and-push:
     environment:
@@ -26,6 +26,8 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
+    - setup_remote_docker:
+        version: 19.03.13
   deploy:
     executor: docker/docker
     steps:
