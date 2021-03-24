@@ -5,27 +5,27 @@ orbs:
   docker: circleci/docker@1.4.0
 
 jobs:
-  # build-and-push:
-  #   environment:
-  #     DOCKER_IMAGE: nvkhiem/react-docker
-  #     DOCKER_TAG: latest
-  #   executor: docker/docker
-  #   steps:
-  #     - setup_remote_docker
-  #     - checkout
-  #     - docker/check:
-  #         docker-username: DOCKER_USER
-  #         docker-password: DOCKER_PASSWORD
-  #     - docker/build:
-  #         image: $DOCKER_IMAGE
-  #         tag: $DOCKER_TAG
-  #     - docker/push:
-  #         digest-path: /tmp/digest.txt
-  #         image: $DOCKER_IMAGE
-  #         tag: $DOCKER_TAG
-  #     - run:
-  #         command: |
-  #           echo "Digest is: $(</tmp/digest.txt)"
+  build-and-push:
+    environment:
+      DOCKER_IMAGE: nvkhiem/react-docker
+      DOCKER_TAG: latest
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check:
+          docker-username: DOCKER_USER
+          docker-password: DOCKER_PASSWORD
+      - docker/build:
+          image: $DOCKER_IMAGE
+          tag: $DOCKER_TAG
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: $DOCKER_IMAGE
+          tag: $DOCKER_TAG
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
   deploy:
     executor: docker/docker
     steps:
@@ -39,10 +39,13 @@ workflows:
   my-pipeline:
     jobs:
       - node/test
-      - deploy:
+      - build-and-push:
           requires:
             - node/test
           filters:
             branches:
               only:
                 - main
+      - deploy:
+          requires:
+            - build-and-push
