@@ -34,8 +34,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - $SSH_KEY_FINGERPRINT
-      - run: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER
-      - run: cd react-cicd && npm install && npm run start
+      - run: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER 'cd react-cicd && npm install && npm run start'
+      # - run: cd react-cicd && npm install && npm run start
 
 workflows:
   my-pipeline:
