@@ -9,7 +9,7 @@ function App() {
         <a
           href="https://reactjs.org"
         >
-          HAHA BRANCH TEST
+          test-cicd.cointap.app
         </a>
         <a
           className="App-link"
