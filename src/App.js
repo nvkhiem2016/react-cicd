@@ -9,7 +9,7 @@ function App() {
         <a
           href="https://reactjs.org"
         >
-          Click to receive money Test Vercel
+          Click to receive money Test Branch
         </a>
         <a
           className="App-link"
