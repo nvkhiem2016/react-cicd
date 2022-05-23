@@ -9,7 +9,7 @@ function App() {
         <a
           href="https://reactjs.org"
         >
-          Click to receive money Test Branch
+          HAHA BRANCH TEST
         </a>
         <a
           className="App-link"
