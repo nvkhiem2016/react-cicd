@@ -9,7 +9,7 @@ function App() {
         <a
           href="https://reactjs.org"
         >
-          test-cicd.cointap.app
+          ReactJS
         </a>
         <a
           className="App-link"
@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Dev Branch
         </a>
       </header>
     </div>
