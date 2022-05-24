@@ -1,0 +1,47 @@
+name: Testing
+# Run testing when there are any new pull request
+on:
+  push:
+    branches:
+      - "*"
+      - "!dev"
+      - "!main"
+  pull_request:
+    branches:
+      - main
+      - dev
+      - v*
+      - gitlab-cicd
+      - "!branch-ignore/**"
+
+jobs:
+  install-package:
+    runs-on: ubuntu-latest
+    name: "Install package before"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set npm-token and install
+        run: npm config set "//registry.npmjs.org/:_authToken" ${{secrets.NPM_TOKEN}}
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            node_modules-
+
+      - name: Install dependencies
+        run: yarn install
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Unit Test!!!
+  automation-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Automation Test!!!

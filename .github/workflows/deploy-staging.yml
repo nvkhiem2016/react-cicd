@@ -1,0 +1,98 @@
+name: Deploy CoinTap App to AWS S3
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - staging
+      - dev
+    paths: 
+      - "**.jsx"
+      - "**.json"
+      - "**.ts"
+      - "**.yml"
+
+env:
+  AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET_STAGING}}
+  AWS_S3_REGION: ${{secrets.AWS_S3_REGION_STAGING}}
+  AWS_DISTRIBUTION_ID: ${{secrets.AWS_DISTRIBUTION_ID_STAGING}}
+
+jobs:
+  install-package:
+    runs-on: ubuntu-latest
+    name: "Install package before"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set npm-token and install
+        run: npm config set "//registry.npmjs.org/:_authToken" ${{secrets.NPM_TOKEN}}
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            node_modules-
+
+      - name: Install dependencies
+        run: yarn install
+
+  build:
+    runs-on: ubuntu-latest
+    name: "Build App"
+    needs: [install-package]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          # npm cache files are stored in `node_modules` on Linux/macOS
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            node_modules-
+
+      - run: yarn build
+
+      - name: Archive folder build
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: |
+            build
+          retention-days: 1
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    name: "Upload app to AWS S3"
+    needs: [build, install-package]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::815538845682:role/GitHubOIDC
+          aws-region: ${{env.AWS_S3_REGION}}
+
+      - name: Download folder build
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: |
+            build
+
+      - name: Copy files to the test website with the AWS CLI
+        run: |
+          aws s3 sync ./build s3://${{env.AWS_S3_BUCKET}} --delete
+          aws cloudfront create-invalidation --distribution-id ${{env.AWS_DISTRIBUTION_ID}} --paths "/*"
