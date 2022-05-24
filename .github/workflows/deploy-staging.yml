@@ -24,7 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     name: "Upload app to AWS S3"
-    needs: [build, install-package]
     permissions:
       id-token: write
       contents: read
