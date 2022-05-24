@@ -39,4 +39,4 @@ jobs:
       - name: Copy files to the test website with the AWS CLI
         run: |
           echo hello world > ./hello_world.txt
-          aws s3 sync ./hello_world.txt s3://${{secrets.AWS_S3_BUCKET}} --delete
+          aws s3 cp ./hello_world.txt s3://${{secrets.AWS_S3_BUCKET}}
