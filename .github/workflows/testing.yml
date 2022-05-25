@@ -9,8 +9,6 @@ on:
       - main
       - dev
       - v*
-      - gitlab-cicd
-      - "!branch-ignore/**"
 
 jobs:
   install-package:
