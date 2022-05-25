@@ -3,7 +3,7 @@ name: Deploy CoinTap App to AWS S3
 on:
   push:
     branches:
-      - dev
+      - dev*
   pull_request:
     branches:
       - staging
