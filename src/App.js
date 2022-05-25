@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Khonghieu luon a
+          Khonghieu luon a xam vl
         </a>
       </header>
     </div>
