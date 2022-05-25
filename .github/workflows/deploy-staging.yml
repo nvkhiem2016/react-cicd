@@ -9,17 +9,37 @@ on:
       - "**.json"
       - "**.ts"
       - "**.yml"
-
+  workflow_run:
+    workflows: [Testing]
+    types: [completed]
+  
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
 #   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
 
 jobs:
+
+  install_package:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo install_package!!!
+      
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: [install_package]
+    steps:
+      - run: echo Unit Test!!!
+  automation-test:
+    runs-on: ubuntu-latest
+    needs: [install_package]
+    steps:
+      - run: echo Automation Test!!!
   
   deploy-staging:
     runs-on: ubuntu-latest
     environment: staging
     name: "Upload app to AWS S3"
+    needs: [unit-test, automation-test]
     permissions:
       id-token: write
       contents: read
