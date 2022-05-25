@@ -21,6 +21,5 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     name: "Deploy production"
-    if: github.event.pull_request.merged == true
     steps:
       - run: echo Deploy production
