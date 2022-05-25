@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Will be pull request to Production Version ma deo hieu
+          Khonghieu luon a
         </a>
       </header>
     </div>
