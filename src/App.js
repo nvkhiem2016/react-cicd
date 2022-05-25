@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          pull_request_target Test again github.event.pull_request.merged == true
+          staging
         </a>
       </header>
     </div>
