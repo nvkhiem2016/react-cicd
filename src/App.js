@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Khonghieu luon a xam vl321312
+          pull_request_target
         </a>
       </header>
     </div>
