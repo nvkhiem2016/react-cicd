@@ -1,0 +1,24 @@
+name: Deploy CoinTap App to AWS S3
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths: 
+      - "**.jsx"
+      - "**.json"
+      - "**.ts"
+      - "**.yml"
+
+# env:
+#   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
+#   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
+
+jobs:
+  
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: production
+    name: "Upload app to AWS S3"
+    steps:
+      - run: echo Production
