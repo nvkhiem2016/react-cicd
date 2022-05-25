@@ -9,7 +9,11 @@ on:
       - "**.json"
       - "**.ts"
       - "**.yml"
-
+  workflow_run:
+    workflows: [Testing]
+    types:
+      - completed
+  
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
 #   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
