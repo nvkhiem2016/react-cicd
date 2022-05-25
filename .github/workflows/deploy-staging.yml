@@ -18,11 +18,20 @@ on:
 #   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
 
 jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Unit Test!!!
+  automation-test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Automation Test!!!
   
   deploy-staging:
     runs-on: ubuntu-latest
     environment: staging
     name: "Upload app to AWS S3"
+    needs: [unit-test, automation-test]
     permissions:
       id-token: write
       contents: read
