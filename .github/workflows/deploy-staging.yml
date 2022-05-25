@@ -18,12 +18,20 @@ on:
 #   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
 
 jobs:
+
+  install_package:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo install_package!!!
+      
   unit-test:
     runs-on: ubuntu-latest
+    needs: [install_package]
     steps:
       - run: echo Unit Test!!!
   automation-test:
     runs-on: ubuntu-latest
+    needs: [install_package]
     steps:
       - run: echo Automation Test!!!
   
