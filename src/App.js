@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Dev Branch Dev Branch Test RULE
+          Will be pull request to Production
         </a>
       </header>
     </div>
