@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-    types: [closed, opened]
+    types: [opened]
 
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
@@ -31,6 +31,7 @@ jobs:
       - run: echo Automation Test!!!
 
   deploy-production:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: [install_package, unit-test, automation-test]
     environment: production
