@@ -38,6 +38,7 @@ jobs:
   deploy-production:
     # if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
+    needs: [install_package, unit-test, automation-test]
     environment: production
     name: "Deploy production"
     steps:
