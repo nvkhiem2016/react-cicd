@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          staging github.event.review.state == 'approved's sstagingggggggg
+          github.event.pull_request.merged == 'true'
         </a>
       </header>
     </div>
