@@ -1,10 +1,14 @@
 name: Deploy to Production
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types: [ opened, reopened ]
+    paths:
+      - "**.jsx"
+      - "**.json"
+      - "**.ts"
+      - "**.yml"
 
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
