@@ -9,10 +9,10 @@ on:
       - "**.json"
       - "**.ts"
       - "**.yml"
-  pull_request_review:
-    branches:
-      - main
-    types: [submitted]
+  # pull_request_review:
+  #   branches:
+  #     - main
+  #   types: [submitted]
 
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
@@ -36,7 +36,7 @@ jobs:
       - run: echo Automation Test!!!
 
   deploy-production:
-    if: github.event.review.state == 'approved'
+    # if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     environment: production
     name: "Deploy production"
