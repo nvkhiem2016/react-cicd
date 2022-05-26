@@ -9,10 +9,10 @@ on:
       - "**.json"
       - "**.ts"
       - "**.yml"
-  pull_request_review:
+  pull_request:
     branches:
       - main
-    types: [submitted]
+    types: [closed, opened]
 
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
@@ -40,6 +40,6 @@ jobs:
     needs: [install_package, unit-test, automation-test]
     environment: production
     name: "Deploy production"
-    if: github.event.review.state == 'approved'
+    if: github.event.pull_request.merged == 'true'
     steps:
       - run: echo Deploy production
