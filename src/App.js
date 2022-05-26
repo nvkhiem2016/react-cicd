@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          github.event.pull_request.merged == 'true'
+          github.event.pull_request.merged == 'true' production
         </a>
       </header>
     </div>
