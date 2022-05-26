@@ -31,7 +31,6 @@ jobs:
       - run: echo Automation Test!!!
 
   deploy-production:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     needs: [install_package, unit-test, automation-test]
     environment: production
