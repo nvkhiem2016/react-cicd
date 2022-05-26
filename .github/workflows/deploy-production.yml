@@ -9,19 +9,34 @@ on:
       - "**.json"
       - "**.ts"
       - "**.yml"
+  pull_request_review:
+    branches:
+      - main
+    types: [submitted]
 
 # env:
 #   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
 #   AWS_S3_REGION: ${{secrets.AWS_S3_REGION}}
 
 jobs:
-  something-step:
+  install_package:
     runs-on: ubuntu-latest
-    name: "Something step"
     steps:
-      - run: echo Something step
+      - run: echo install_package!!!
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: [install_package]
+    steps:
+      - run: echo Unit Test!!!
+  automation-test:
+    runs-on: ubuntu-latest
+    needs: [install_package]
+    steps:
+      - run: echo Automation Test!!!
 
   deploy-production:
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     environment: production
     name: "Deploy production"
