@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          staging 3213123123123131312312312312
+          staging github.event.review.state == 'approved'
         </a>
       </header>
     </div>
